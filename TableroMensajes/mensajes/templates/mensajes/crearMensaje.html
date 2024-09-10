@@ -1,0 +1,15 @@
+{% extends 'mensajes/base.html' %}
+
+
+{% block titulo %} Crear Mensaje {% endblock %}
+
+
+{% block contenido %}
+ 
+  <form method="post" action="{% url 'mensajes:crear_mensaje' %}">
+    {% csrf_token %}
+   {{ form.as_p }}
+    <button type="submit">Enviar</button>
+  </form>
+  <a href="{% url 'mensajes:lista_mensaje' %}">Volver a la lista de mensajes</a>
+{% endblock %}

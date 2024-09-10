@@ -1,0 +1,66 @@
+{% extends 'mensajes/base.html' %}
+
+{% block titulo %}  Tablero Mensaje  {% endblock %}
+
+{% block contenido %}   
+ <!-- BOTÓN CREAR MENSAJE -->
+<h2>Crear Mensaje</h2>
+<form method="post" action="{% url 'mensajes:crear_mensaje' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ENVIAR</button>
+    </form>
+
+
+    <!-- ENLACE PARA VOLVER A MENSAJES-->
+</p><a href="{% url 'mensajes:lista_mensaje' %}"></a></p>
+
+<!-- Formulario de búsqueda por remitente y destinatario -->
+<form method="get" action="{% url 'mensajes:lista_mensaje' %}">
+    <div>
+        <label for="remitente">Buscar por remitente:</label>
+        <input type="text" id="remitente" name="remitente" placeholder="Remitente" value="{{ request.GET.remitente }}">
+    </div>
+
+    <div>
+        <label for="destinatario">Buscar por destinatario:</label>
+        <input type="text" id="destinatario" name="destinatario" placeholder="Destinatario" value="{{ request.GET.destinatario }}">
+    </div>
+    <button type="submit">Buscar</button>
+</form>
+
+<table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Remitente</th>
+            <th>Destinatario</th>
+            <th>Texto</th>
+            <th>Fecha y Hora</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mensaje in mensajes %}
+            <tr>
+                <td>{{ mensaje.remitente }}</td>
+                <td>{{ mensaje.destinatario }}</td>
+                <td>{{ mensaje.texto }}</td>
+                <td>{{ mensaje.fecha_hora }}</td>
+                <td>
+                    <!--boton elimina mensaje-->
+                    <form method="post" action= "{% url 'mensajes:eliminar_mensaje' mensaje.pk %}">
+                        {% csrf_token %}
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+
+            {% endfor %}
+    </tbody>
+</table>
+
+
+
+{% endblock %}
+

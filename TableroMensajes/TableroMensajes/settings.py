@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mensajes'#nuestra app
 ]
 
 MIDDLEWARE = [
@@ -52,9 +53,9 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'TableroMensajes.urls'
 
 TEMPLATES = [
-    {
+    {  
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS':[BASE_DIR/'templates'], #carpeta templates agregada
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
